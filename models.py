@@ -34,7 +34,7 @@ class NearEarthObject:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, designation, name='None', diameter=float('nan'), hazardous=False):
+    def __init__(self, designation, name=None, diameter=float('nan'), hazardous=False):
         """Create a new `NearEarthObject`.
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
@@ -45,9 +45,9 @@ class NearEarthObject:
         # handle any edge cases, such as a empty name being represented by `None`
         # and a missing diameter being represented by `float('nan')`.
         self.designation = designation
-        self.name = name
-        self.diameter = diameter
-        self.hazardous = hazardous
+        self.name = str(name) if name else None
+        self.diameter = float(diameter) if diameter else float('nan')
+        self.hazardous = True if hazardous == 'Y' else False
 
         # Create an empty initial collection of linked approaches.
         self.approaches = []
@@ -86,7 +86,7 @@ class CloseApproach:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, _designation, time='None', distance=float('nan'), velocity=float('nan'):
+    def __init__(self, _designation, time=None, distance=float('nan'), velocity=float('nan')):
         """Create a new `CloseApproach`.
 
         :param info: A dictionary of excess keyword arguments supplied to the constructor.
@@ -97,8 +97,8 @@ class CloseApproach:
         # The `cd_to_datetime` function will be useful.
         self._designation = _designation
         self.time = cd_to_datetime(time)  # TODO: Use the cd_to_datetime function for this attribute.
-        self.distance = distance
-        self.velocity = velocity
+        self.distance = float(distance)
+        self.velocity = float(velocity)
 
         # Create an attribute for the referenced NEO, originally None.
         self.neo = None
