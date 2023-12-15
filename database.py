@@ -42,9 +42,20 @@ class NEODatabase:
         self._approaches = approaches
 
         # TODO: What additional auxiliary data structures will be useful?
-
+        self.dict_designation = {}
+        self.dict_name = {}
+        for neo in neos:
+            key = neo.designation
+            value = neo
+            self.dict_designation[key] = value
+            key2 = neo.name
+            if key2:
+                self.dict_name[key2] = value
+           
         # TODO: Link together the NEOs and their close approaches.
-        if CloseApproach._designation == NearEarthObject.designation:
+        for approach in self._approaches:
+            #attach this approach to its NEO
+            #get NEO from its designation
 
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.
@@ -60,6 +71,7 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
         # TODO: Fetch an NEO by its primary designation.
+        
         return None
 
     def get_neo_by_name(self, name):
