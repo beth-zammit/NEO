@@ -81,7 +81,7 @@ class HazardousFilter(AttributeFilter):
     def get(cls, approach):
         return approach.neo.hazardous
     
-class DateFilter(AttribueFilter):
+class DateFilter(AttributeFilter):
     @classmethod
     def get(cls, approach):
         return approach.time.date() 

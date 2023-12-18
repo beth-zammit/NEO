@@ -26,6 +26,14 @@ def write_to_csv(results, filename):
     """
     fieldnames = ('datetime_utc', 'distance_au', 'velocity_km_s', 'designation', 'name', 'diameter_km', 'potentially_hazardous')
     # TODO: Write the results to a CSV file, following the specification in the instructions.
+    with open(filename, 'w') as outfile:
+        writer = csv.DictWriter(outfile, fieldnames = fieldnames)
+        writer.writeheader()
+        for result in results:
+            content = {**result.serialize(), **result.neo.serialize()}
+            content['name'] = content['name'] if content['name'] is not None else ""
+            content['potentially_hazardous'] = 'True' if content['potentially_hazardous'] else 'False'
+            writer.writerow(content)
 
 
 def write_to_json(results, filename):
@@ -40,3 +48,11 @@ def write_to_json(results, filename):
     :param filename: A Path-like object pointing to where the data should be saved.
     """
     # TODO: Write the results to a JSON file, following the specification in the instructions.
+    output = []
+    for result in results:
+        ca = result.serialize()
+        ca['neo'] = result.neo.serialize()
+        output.append(ca)
+    
+    with open(filename, 'w') as outfile:
+        json.dump(output, outfile, indent = 2)
